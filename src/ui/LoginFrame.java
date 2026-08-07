@@ -4,6 +4,7 @@ import java.awt.*;
 import javax.swing.*;
 
 import config.AppConfig;
+import controller.LoginController;
 import ui.component.CardPanel;
 import ui.component.FormTextField;
 import ui.component.PasswordField;
@@ -19,6 +20,8 @@ public class LoginFrame extends BaseFrame {
     private PrimaryButton btnLogin;
     private SecondaryButton btnClear;
 
+    private LoginController controller;
+
     public LoginFrame() {
 
         super(AppConfig.APP_NAME);
@@ -26,6 +29,8 @@ public class LoginFrame extends BaseFrame {
     }
 
     private void initialize() {
+
+        controller = new LoginController();
 
         setLayout(new BorderLayout());
 
@@ -42,6 +47,23 @@ public class LoginFrame extends BaseFrame {
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 2;
+
+        ImageIcon icon = new ImageIcon(getClass().getResource("/icons/logo.png"));
+
+        System.out.println(icon);
+
+        Image image = icon.getImage()
+                .getScaledInstance(
+                        80,
+                        80,
+                        Image.SCALE_SMOOTH);
+
+        JLabel logoLabel = new JLabel(
+                new ImageIcon(image));
+
+        card.add(logoLabel, gbc);
+
+        gbc.gridy++;
 
         card.add(new TitleLabel(" STUDENT RECORD STORAGE SYSTEM"), gbc);
 
@@ -94,8 +116,7 @@ public class LoginFrame extends BaseFrame {
 
         add(centerPanel, BorderLayout.CENTER);
 
-        JLabel version = new JLabel("Version " + AppConfig.VERSION,
-                SwingConstants.CENTER);
+        JLabel version = new JLabel("Version " + AppConfig.VERSION, SwingConstants.CENTER);
 
         add(version, BorderLayout.SOUTH);
 
@@ -107,15 +128,39 @@ public class LoginFrame extends BaseFrame {
 
     private void registerEvents() {
 
+        btnLogin.addActionListener(e -> login());
+
         btnClear.addActionListener(e -> {
-
             txtUsername.setText("");
-
             txtPassword.setText("");
-
             txtUsername.requestFocus();
-
         });
+    }
+
+    private void login() {
+        String username = txtUsername.getText().trim();
+        String password = new String(txtPassword.getPassword());
+
+        if (username.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Username is required.");
+            txtUsername.requestFocus();
+            return;
+        }
+
+        if (password.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Password is required.");
+            txtPassword.requestFocus();
+            return;
+        }
+
+        boolean success = controller.login(username, password);
+        if (success) {
+            JOptionPane.showMessageDialog(this, "Login successfully.");
+            dispose();
+            new DashboardFrame();
+        } else {
+            JOptionPane.showMessageDialog(this, "Invalid Username or Password.");
+        }
 
     }
 }

@@ -3,31 +3,20 @@ package ui;
 import java.awt.*;
 import javax.swing.*;
 
-import controller.NavigationController;
-import ui.panel.HeaderPanel;
+import config.AppConfig;
 
-public class DashboardFrame extends JFrame {
+public class DashboardFrame extends BaseFrame {
     public DashboardFrame() {
+        super(AppConfig.APP_NAME);
+        initialize();
+    }
 
-        setTitle("Dashboard");
-        setSize(1000, 650);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    private void initialize() {
+        setLayout(new BorderLayout());
+        JLabel title = new JLabel("Dashboard", SwingConstants.CENTER);
 
-        // JLabel lblTitle = new JLabel("Welcome to Dashboard");
-        // lblTitle.setFont(new Font("SansSerif", Font.BOLD, 30));
-        // lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
-
-        HeaderPanel headerPanel = new HeaderPanel();
-
-        // CardLayout cardLayout = new CardLayout();
-        // JPanel contentPanel =new JPanel(cardLayout);
-
-        // NavigationController navigationController new
-        // NavigationController(cardLayout, contentPanel);
-
-        add(headerPanel);
-
+        title.setFont(new Font("Segoe UI", Font.BOLD, 30));
+        add(title, BorderLayout.CENTER);
         setVisible(true);
     }
 }
