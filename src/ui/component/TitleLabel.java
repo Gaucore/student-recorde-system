@@ -1,19 +1,16 @@
 package ui.component;
 
-import java.awt.Color;
 import java.awt.Font;
 
 import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 
 public class TitleLabel extends JLabel {
-    public TitleLabel(String text) {
-        super(text);
-        initialize();
-    }
+    public TitleLabel(String title) {
 
-    private void initialize() {
-        setFont(new Font("SansSerif", Font.BOLD, 28));
-        setForeground(new Color(25, 118, 210));
-        setHorizontalAlignment(CENTER);
+        super(title, SwingConstants.CENTER);
+
+        setFont(new Font("Segoe UI", Font.BOLD, 28));
+
     }
 }

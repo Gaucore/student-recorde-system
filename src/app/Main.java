@@ -9,8 +9,7 @@ public class Main {
         // System.out.println("Student Record Storage System Started.");
 
         SwingUtilities.invokeLater(() -> {
-            LoginFrame frame = new LoginFrame();
-            frame.setVisible(true);
+            new LoginFrame();
         });
 
     }
