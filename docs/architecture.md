@@ -2,252 +2,123 @@
 
 ## Project Overview
 
-The Student Record Storage System is a Java Swing desktop application for managing student records. It uses a simple layered architecture with UI, controller, service, repository, and model layers.
+The Student Record Storage System is a Java Swing desktop application for managing student records. The application follows a layered architecture with presentation, controller, service, repository, and model components. The current implementation already includes a login flow, a dashboard shell, and a student service layer backed by file-based persistence.
 
-## Package Structure
+## Layered Structure
 
-- `app`
-  - `Main.java` — application entry point.
+### Presentation Layer
 
-- `config`
-  - `AppConfig.java` — global application constants.
+Located in the `ui` package.
 
-- `model`
-  - `Student.java` — student entity with fields, getters/setters, and identity logic.
-  - `User.java` — placeholder class for future user modeling.
+- `LoginFrame` renders the login screen and collects credentials.
+- `DashboardFrame` creates the main window shell for the application.
+- `HeaderPanel` displays the title, welcome text, clock, and navigation area.
+- UI component classes such as `CardPanel`, `PrimaryButton`, and `FormTextField` provide reusable Swing styling.
 
-- `repository`
-  - `StudentRepository.java` — persistence interface.
-  - `StudentRepositoryImpl.java` — file-based storage using Java serialization.
+### Controller Layer
 
-- `service`
-  - `StudentService.java` — student business operations interface.
-  - `StudentServiceImpl.java` — implements business rules, validation, and persistence coordination.
+Located in the `controller` package.
 
-- `controller`
-  - `NavigationController.java` — toggles UI card panels.
-  - `LoginController.java` — placeholder login controller.
-  - `StudentController.java` — placeholder student controller.
+- `LoginController` passes login credentials to the authentication service.
+- `NavigationController` is present as a placeholder for future panel switching and card-based navigation.
 
-- `ui`
-  - `LoginFrame.java` — login window.
-  - `DashboardFrame.java` — main dashboard window.
-  - `panel.HeaderPanel.java` — header section with live clock.
-  - `component` — custom Swing components for styling.
+### Service Layer
 
-- `util`
-  - `DateUtil.java` — placeholder date utility.
-  - `ValidationUtil.java` — placeholder validation utility.
+Located in the `service` package.
+
+- `AuthenticationService` validates the supplied username and password.
+- `StudentServiceImpl` manages student CRUD operations in memory and coordinates persistence.
+
+### Repository Layer
+
+Located in the `repository` package.
+
+- `UserRepository` provides the current user lookup logic for login.
+- `StudentRepositoryImpl` saves and loads student data using Java serialization.
+
+### Model Layer
+
+Located in the `model` package.
+
+- `Student` stores the core student record fields.
+- `User` represents the authenticated account used by the login flow.
 
 ## Core Data Model
 
-### `Student`
+### Student
 
 Fields:
-- `rollNo` (int)
-- `name` (String)
-- `course` (String)
-- `marks` (double)
-- `mobile` (String)
-- `email` (String)
+- `rollNo`
+- `name`
+- `course`
+- `marks`
+- `mobile`
+- `email`
 
 Behavior:
-- `equals()` and `hashCode()` are based on `rollNo`.
-- Provides full JavaBean-style getters and setters.
+- Uses the roll number as the identity field for duplicate checks and updates.
+- Provides standard getter and setter methods for Swing integration and service logic.
 
-## Flow of Control
+## Runtime Flow
 
-1. `Main.main()` starts the application and opens `LoginFrame` on the Swing event thread.
-2. `LoginFrame` displays username/password fields and login/clear buttons.
-3. On successful login (`admin` / `admin123`), `DashboardFrame` is opened and `LoginFrame` is disposed.
-4. `DashboardFrame` currently displays `HeaderPanel` and sets up the dashboard frame.
-5. `StudentServiceImpl` loads students from disk at construction using `StudentRepositoryImpl`.
-6. Student CRUD operations are performed through `StudentServiceImpl`.
-7. Data is persisted back to `student.ser` after add, update, or delete.
+### 1. Application startup
 
-## Persistence Logic
+`Main.main()` launches the application on the Swing event dispatch thread and opens the login window.
 
-### `StudentRepositoryImpl`
+### 2. Authentication flow
 
-- `saveStudents(ArrayList<Student> students)`
-  - Serializes the student list to `student.ser`.
-- `loadStudents()`
-  - Reads `student.ser` if it exists and returns the stored list.
-  - Returns an empty list if the file is missing or if deserialization fails.
-
-## Business Logic
-
-### `StudentServiceImpl`
-
-- Maintains an in-memory `ArrayList<Student>` loaded from storage.
-- `addStudent(Student student)`
-  - Prevents duplicate roll numbers.
-  - Adds a new student and persists the list.
-- `getAllStudents()`
-  - Returns the live in-memory list.
-- `searchStudent(int rollNo)`
-  - Finds a student by roll number.
-- `updateStudent(Student updatedStudent)`
-  - Finds the existing student by roll number.
-  - Updates fields if found and persists the list.
-- `deleteStudent(int rollNo)`
-  - Removes the student and persists the list.
-
-## UI Flow
-
-### `LoginFrame`
-
-- Validates that username and password are entered.
-- Checks hard-coded credentials.
-- On success shows `DashboardFrame`.
-- `clearForm()` resets the login fields.
-
-### `DashboardFrame`
-
-- Sets up the main window and includes `HeaderPanel`.
-- Does not yet contain the student management panel or navigation wiring.
-
-### `HeaderPanel`
-
-- Displays the app title, subtitle, welcome message, date, time, and logout button.
-- Uses a Swing `Timer` to refresh the clock every second.
-
-## Notable Gaps and Placeholders
-
-- `User`, `LoginController`, `StudentController`, `DashboardPanel`, `StudentPanel`, `SidebarPanel`, `StatusPanel`, `DateUtil`, and `ValidationUtil` are currently empty placeholders.
-- The dashboard is not fully wired to student management operations.
-- There is no database; persistence is file-based serialization.
-
-## Diagrams
-
-### Entity Relationship Diagram (ERD)
-
-```mermaid
-erDiagram
-    STUDENT {
-        int rollNo PK
-        string name
-        string course
-        double marks
-        string mobile
-        string email
-    }
-
-    USER {
-        string username
-        string password
-    }
-
-    STUDENT ||--o{ USER : managed_by
-```
-
-> Note: `User` is a placeholder entity. Current implementation only persists `Student`.
-
-### Flowchart
-
-```mermaid
-flowchart TD
-    A[Start Application] --> B[Main.main()]
-    B --> C[Open LoginFrame]
-    C --> D{Login Clicked}
-    D -->|Invalid| E[Show error message]
-    D -->|Valid| F[Open DashboardFrame]
-    F --> G[Load HeaderPanel]
-    G --> H[User interacts with student UI]
-    H --> I[StudentServiceImpl operation]
-    I --> J[StudentRepositoryImpl persists student.ser]
-    J --> K[End]
-```
-
-### Sequence Diagram
+1. `LoginFrame` captures the username and password.
+2. `LoginController` forwards the values to `AuthenticationService`.
+3. `AuthenticationService` queries `UserRepository`.
+4. A known admin account is accepted, and the dashboard can be opened.
 
 ```mermaid
 sequenceDiagram
     participant User
     participant LoginFrame
-    participant DashboardFrame
-    participant StudentServiceImpl
-    participant StudentRepositoryImpl
+    participant LoginController
+    participant AuthenticationService
+    participant UserRepository
 
-    User->>LoginFrame: enters credentials
-    LoginFrame->>LoginFrame: validate inputs
-    alt valid credentials
-        LoginFrame->>DashboardFrame: open dashboard
-        DashboardFrame->>StudentServiceImpl: constructor loads students
-        StudentServiceImpl->>StudentRepositoryImpl: loadStudents()
-        StudentRepositoryImpl-->>StudentServiceImpl: student list
-    else invalid credentials
-        LoginFrame-->>User: show error
-    end
-
-    User->>DashboardFrame: add / update / delete student
-    DashboardFrame->>StudentServiceImpl: add/update/delete
-    StudentServiceImpl->>StudentRepositoryImpl: saveStudents()
-    StudentRepositoryImpl-->>StudentServiceImpl: success
+    User->>LoginFrame: enter credentials
+    LoginFrame->>LoginController: login(username, password)
+    LoginController->>AuthenticationService: authenticate(username, password)
+    AuthenticationService->>UserRepository: findUser(username)
+    UserRepository-->>AuthenticationService: User or null
+    AuthenticationService-->>LoginController: true/false
 ```
 
-### Class Diagram
+### 3. Dashboard flow
+
+After authentication succeeds, the app opens `DashboardFrame`, which initializes the shell UI and header panel.
+
+### 4. Student data flow
+
+`StudentServiceImpl` loads the list of students from `student.ser` when created, and any add/update/delete operation is persisted back to the same file.
 
 ```mermaid
-classDiagram
-    class Main {
-        +main(String[] args)
-    }
-    class LoginFrame {
-        - txtUsername
-        - txtPassword
-        + login()
-        + clearForm()
-    }
-    class DashboardFrame {
-        + DashboardFrame()
-    }
-    class HeaderPanel {
-        + HeaderPanel()
-        - startClock()
-    }
-    class Student {
-        - rollNo
-        - name
-        - course
-        - marks
-        - mobile
-        - email
-        + getRollNo()
-        + setRollNo(int)
-    }
-    class StudentRepository {
-        <<interface>>
-        + saveStudents(ArrayList~Student~)
-        + loadStudents()
-    }
-    class StudentRepositoryImpl {
-        + saveStudents(ArrayList~Student~)
-        + loadStudents()
-    }
-    class StudentService {
-        <<interface>>
-        + addStudent(Student)
-        + getAllStudents()
-        + searchStudent(int)
-        + updateStudent(Student)
-        + deleteStudent(int)
-    }
-    class StudentServiceImpl {
-        - repository : StudentRepository
-        - students : ArrayList~Student~
-        + addStudent(Student)
-        + getAllStudents()
-        + searchStudent(int)
-        + updateStudent(Student)
-        + deleteStudent(int)
-    }
+flowchart TD
+    A[Start Application] --> B[Main.main()]
+    B --> C[Open LoginFrame]
+    C --> D[Authenticate user]
+    D --> E[Open DashboardFrame]
+    E --> F[StudentServiceImpl loads students]
+    F --> G[StudentRepositoryImpl persists student.ser]
+```
 
-    Main --> LoginFrame
-    LoginFrame --> DashboardFrame
-    DashboardFrame --> HeaderPanel
-    StudentServiceImpl ..|> StudentService
-    StudentRepositoryImpl ..|> StudentRepository
+## Persistence Design
+
+The current persistence layer is file-based and uses Java object serialization.
+
+- `StudentRepositoryImpl.saveStudents()` writes the current list to `student.ser`.
+- `StudentRepositoryImpl.loadStudents()` reads the file if it exists and returns its contents.
+- If the file is missing or unreadable, the service starts with an empty list.
+
+## Current Status and Notes
+
+- The authentication path and student service layer are implemented.
+- The dashboard is currently a functional shell rather than a full student-management UI.
+- The project is ready for future expansion into richer navigation, full CRUD forms, and a database-backed persistence layer.
     StudentServiceImpl --> StudentRepository
     StudentServiceImpl --> Student
 ```

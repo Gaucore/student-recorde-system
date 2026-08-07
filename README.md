@@ -2,57 +2,62 @@
 
 ## Overview
 
-Student Record Storage System is a Java Swing desktop application for managing student records. It follows a layered architecture with separate UI, controller, service, repository, and model layers. The current implementation supports login, dashboard display, and file-based persistence for student data.
+Student Record Storage System is a Java Swing desktop application for managing student records. The current version uses a layered structure with UI, controller, service, repository, and model classes. It includes a login screen flow, a dashboard shell, and file-based persistence for student data.
 
-## Key Features
+## Current Features
 
-- Login screen with credential validation
-- Dashboard frame with header panel
-- Student data modeled in a `Student` entity
-- File-based persistence using Java object serialization
-- Reusable styled Swing components for fields and buttons
+- Login window UI with username and password fields
+- Authentication flow through controller and service classes
+- Dashboard window with a header panel and live clock
+- Student CRUD service logic with persistence support
+- File-based storage using Java serialization in `student.ser`
+- Reusable Swing UI components for a more polished desktop experience
 
 ## Project Structure
 
 - `src/app/Main.java` — application entry point
-- `src/config/AppConfig.java` — app constants and window sizes
-- `src/model/Student.java` — student data model
-- `src/repository/StudentRepository.java` — persistence interface
-- `src/repository/StudentRepositoryImpl.java` — file persistence implementation
-- `src/service/StudentService.java` — business service interface
-- `src/service/StudentServiceImpl.java` — student CRUD logic
-- `src/controller/NavigationController.java` — card navigation controller
-- `src/ui/LoginFrame.java` — login UI
-- `src/ui/DashboardFrame.java` — dashboard UI
-- `src/ui/panel/HeaderPanel.java` — header panel with clock
-- `src/ui/component` — styled Swing components
-- `src/util` — utility classes (placeholders)
+- `src/config/AppConfig.java` — shared app constants and sizing values
+- `src/controller/LoginController.java` — login request handling
+- `src/controller/NavigationController.java` — navigation placeholder for future UI cards
+- `src/model/Student.java` — student entity model
+- `src/model/User.java` — user model used by authentication
+- `src/repository/UserRepository.java` — temporary user lookup implementation
+- `src/repository/StudentRepository.java` — student persistence interface
+- `src/repository/StudentRepositoryImpl.java` — file-based student persistence implementation
+- `src/service/AuthenticationService.java` — authentication logic
+- `src/service/StudentService.java` — student business interface
+- `src/service/StudentServiceImpl.java` — student CRUD implementation
+- `src/ui/LoginFrame.java` — login UI screen
+- `src/ui/DashboardFrame.java` — main dashboard window shell
+- `src/ui/panel/HeaderPanel.java` — header panel with clock and welcome content
 
-## Usage
+## How to Run
 
-1. Run `src/app/Main.java`
-2. Enter credentials:
+1. Run `src/app/Main.java` from your Java IDE.
+2. Use the default login credentials:
    - Username: `admin`
    - Password: `admin123`
-3. On successful login, the dashboard window opens.
+3. After a successful login, the dashboard window opens.
+
+## Application Flow
+
+1. `Main` launches the login screen.
+2. `LoginFrame` collects the entered credentials.
+3. `LoginController` passes the request to `AuthenticationService`.
+4. `UserRepository` verifies the known admin account.
+5. On success, the dashboard opens and the app moves into the main desktop shell.
+6. `StudentServiceImpl` manages student records and persists them through `StudentRepositoryImpl`.
 
 ## Persistence
 
-Student data is stored in `student.ser` using Java serialization. The `StudentServiceImpl` loads students on startup and saves after add/update/delete operations.
-
-## Notes
-
-- The login check is hard-coded and not secure.
-- `User`, `LoginController`, `StudentController`, `DashboardPanel`, and other UI panels are placeholders.
-- Design is ready for expansion with full navigation and student management UI.
+Student data is stored in `student.ser` using Java object serialization. The service loads the list on startup and saves it after add, update, or delete operations.
 
 ## Documentation
 
-- See `docs/architecture.md` for architecture and diagrams.
+- `docs/architecture.md` — layered architecture and component overview
+- `docs/flow.md` — updated runtime flow and sequence diagrams
 
-## Future Improvements
+## Notes
 
-- Add real login authentication with users
-- Implement complete dashboard and student CRUD UI
-- Replace file serialization with a database
-- Use MVC wiring to connect controllers and views
+- Authentication is currently a simple hard-coded admin check and is not yet a secure production solution.
+- The dashboard is still a shell, and future work can extend it with full student management panels and richer navigation.
