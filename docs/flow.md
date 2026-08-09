@@ -20,12 +20,12 @@ flowchart TD
 The login experience is designed around the following path:
 
 1. The user enters a username and password in LoginFrame.
-2. The UI can delegate the request through LoginController.
-3. AuthenticationService validates the credentials against the repository.
+2. LoginController delegates the request to AuthenticationService.
+3. AuthenticationService validates the credentials against UserRepository.
 4. UserRepository returns a User object for the known admin account.
-5. A successful authentication should open the dashboard, while a failed attempt should show an error message.
+5. A successful authentication opens the dashboard, while a failed attempt shows an error message.
 
-> Current status: the authentication service and controller classes are present, but the login button action in the Swing UI is still being wired to the controller layer.
+> Current status: the authentication service and controller classes are present, and the LoginFrame button action is wired to the controller.
 
 ```mermaid
 sequenceDiagram
@@ -46,7 +46,7 @@ sequenceDiagram
 
 ## 3. Dashboard Flow
 
-After successful authentication, the app should open the main dashboard window. The current dashboard implementation is a shell that displays the header section and sets up the main window frame.
+After successful authentication, the app opens the main dashboard window. The current dashboard implementation is a shell that displays the header section and sets up the main window frame.
 
 ```mermaid
 flowchart TD
@@ -57,14 +57,14 @@ flowchart TD
 
 ## 4. Student Record Lifecycle
 
-The student management flow is handled by StudentServiceImpl and StudentRepositoryImpl.
+The student management flow is handled by `StudentService` and `StudentRepository`.
 
 - Add Student
-  - checks for duplicate roll numbers
+  - checks for duplicate student IDs
   - stores the student in memory
   - saves the list to disk
 - Search Student
-  - finds a student by roll number
+  - finds a student by keyword across ID, first name, last name, and course
 - Update Student
   - updates existing values in memory
   - persists the updated list

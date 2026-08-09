@@ -27,14 +27,14 @@ Located in the `controller` package.
 Located in the `service` package.
 
 - `AuthenticationService` validates the supplied username and password.
-- `StudentServiceImpl` manages student CRUD operations in memory and coordinates persistence.
+- `StudentService` manages student CRUD operations and coordinates persistence.
 
 ### Repository Layer
 
 Located in the `repository` package.
 
 - `UserRepository` provides the current user lookup logic for login.
-- `StudentRepositoryImpl` saves and loads student data using Java serialization.
+- `StudentRepository` saves and loads student data using Java serialization.
 
 ### Model Layer
 
@@ -48,15 +48,18 @@ Located in the `model` package.
 ### Student
 
 Fields:
-- `rollNo`
-- `name`
+- `studentId`
+- `firstName`
+- `lastName`
+- `gender`
+- `dateOfBirth`
 - `course`
-- `marks`
-- `mobile`
+- `mobileNumber`
 - `email`
+- `address`
 
 Behavior:
-- Uses the roll number as the identity field for duplicate checks and updates.
+- Uses `studentId` as the identity field for duplicate checks and updates.
 - Provides standard getter and setter methods for Swing integration and service logic.
 
 ## Runtime Flow
@@ -94,7 +97,7 @@ After authentication succeeds, the app opens `DashboardFrame`, which initializes
 
 ### 4. Student data flow
 
-`StudentServiceImpl` loads the list of students from `student.ser` when created, and any add/update/delete operation is persisted back to the same file.
+`StudentService` loads the list of students from `data/student.dat` when created, and any add/update/delete operation is persisted back to the same file.
 
 ```mermaid
 flowchart TD
@@ -110,8 +113,8 @@ flowchart TD
 
 The current persistence layer is file-based and uses Java object serialization.
 
-- `StudentRepositoryImpl.saveStudents()` writes the current list to `student.ser`.
-- `StudentRepositoryImpl.loadStudents()` reads the file if it exists and returns its contents.
+- `StudentRepository.saveToFile()` writes the current list to `data/student.dat`.
+- `StudentRepository.loadFromFile()` reads the file if it exists and returns its contents.
 - If the file is missing or unreadable, the service starts with an empty list.
 
 ## Current Status and Notes

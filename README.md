@@ -10,7 +10,7 @@ Student Record Storage System is a Java Swing desktop application for managing s
 - Authentication flow through controller and service classes
 - Dashboard window with a header panel and live clock
 - Student CRUD service logic with persistence support
-- File-based storage using Java serialization in `student.ser`
+- File-based storage using Java serialization in `data/student.dat`
 - Reusable Swing UI components for a more polished desktop experience
 
 ## Project Structure
@@ -22,11 +22,9 @@ Student Record Storage System is a Java Swing desktop application for managing s
 - `src/model/Student.java` — student entity model
 - `src/model/User.java` — user model used by authentication
 - `src/repository/UserRepository.java` — temporary user lookup implementation
-- `src/repository/StudentRepository.java` — student persistence interface
-- `src/repository/StudentRepositoryImpl.java` — file-based student persistence implementation
+- `src/repository/StudentRepository.java` — file-based student persistence and student lookup
 - `src/service/AuthenticationService.java` — authentication logic
-- `src/service/StudentService.java` — student business interface
-- `src/service/StudentServiceImpl.java` — student CRUD implementation
+- `src/service/StudentService.java` — student CRUD validation and service layer implementation
 - `src/ui/LoginFrame.java` — login UI screen
 - `src/ui/DashboardFrame.java` — main dashboard window shell
 - `src/ui/panel/HeaderPanel.java` — header panel with clock and welcome content
@@ -46,7 +44,7 @@ Student Record Storage System is a Java Swing desktop application for managing s
 3. `LoginController` passes the request to `AuthenticationService`.
 4. `UserRepository` verifies the known admin account.
 5. On success, the dashboard opens and the app moves into the main desktop shell.
-6. `StudentServiceImpl` manages student records and persists them through `StudentRepositoryImpl`.
+7. `StudentService` manages student records and persists them through `StudentRepository`.
 
 ## Persistence
 
