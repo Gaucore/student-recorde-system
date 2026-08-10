@@ -1,11 +1,9 @@
 package ui.panel;
 
 import java.awt.BorderLayout;
-import java.awt.Font;
 
-import javax.swing.JLabel;
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 
 public class DashboardPanel extends JPanel {
 
@@ -16,9 +14,8 @@ public class DashboardPanel extends JPanel {
     private void initialize() {
 
         setLayout(new BorderLayout());
-        JLabel lb1 = new JLabel("Dashboard", SwingConstants.CENTER);
-        lb1.setFont(new Font("Segoe UI", Font.BOLD, 30));
-        add(lb1, BorderLayout.CENTER);
-
+        setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        add(new StatisticsPanel(), BorderLayout.NORTH);
+        add(new QuickActionPanel(), BorderLayout.CENTER);
     }
 }

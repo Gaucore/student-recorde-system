@@ -2,6 +2,7 @@ package controller;
 
 import java.util.List;
 
+import exception.ValidationException;
 import model.Student;
 import service.StudentService;
 
@@ -13,7 +14,7 @@ public class StudentController {
         studentService = new StudentService();
     }
 
-    public boolean addStudent(Student student) {
+    public boolean addStudent(Student student) throws ValidationException {
         return studentService.addStudent(student);
     }
 
@@ -25,7 +26,7 @@ public class StudentController {
         return studentService.findStudent(studentId);
     }
 
-    public boolean updateStudent(Student student) {
+    public boolean updateStudent(Student student) throws ValidationException {
         return studentService.updateStudent(student);
     }
 

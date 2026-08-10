@@ -19,8 +19,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import javax.swing.border.Border;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
@@ -28,6 +26,7 @@ import javax.swing.table.TableRowSorter;
 
 import constant.AppConstants;
 import controller.StudentController;
+import exception.ValidationException;
 import model.Student;
 import table.StudentTableModel;
 
@@ -290,7 +289,7 @@ public class StudentPanel extends JPanel {
             showSuccess(AppConstants.STUDENT_ADDED);
             loadStudents();
             clearForm();
-        } catch (IllegalArgumentException ex) {
+        } catch (ValidationException ex) {
             // JOptionPane.showMessageDialog(this, ex.getMessage(), "Validation Error",
             // JOptionPane.ERROR_MESSAGE);
             showError(ex.getMessage());
@@ -310,7 +309,7 @@ public class StudentPanel extends JPanel {
             loadStudents();
             clearForm();
 
-        } catch (IllegalArgumentException ex) {
+        } catch (ValidationException ex) {
             // JOptionPane.showMessageDialog(this, ex.getMessage(), "Validation Error",
             // JOptionPane.ERROR_MESSAGE);
             showError(ex.getMessage());

@@ -5,6 +5,7 @@ import javax.swing.*;
 
 import config.AppConfig;
 import ui.panel.DashboardPanel;
+import ui.panel.HeaderPanel;
 import ui.panel.SidebarPanel;
 import ui.panel.StudentPanel;
 
@@ -19,11 +20,7 @@ public class DashboardFrame extends BaseFrame {
     }
 
     private void initialize() {
-        // setLayout(new BorderLayout());
-        // JLabel title = new JLabel("Dashboard", SwingConstants.CENTER);
 
-        // title.setFont(new Font("Segoe UI", Font.BOLD, 30));
-        // add(title, BorderLayout.CENTER);
         cardLayout = new CardLayout();
         contentPanel = new JPanel(cardLayout);
         sidebar = new SidebarPanel();
@@ -31,8 +28,14 @@ public class DashboardFrame extends BaseFrame {
         contentPanel.add(new DashboardPanel(), "dashboard");
         contentPanel.add(new StudentPanel(), "students");
 
+        // setLayout(new BorderLayout());
+        HeaderPanel header = new HeaderPanel();
         setLayout(new BorderLayout());
+
+        add(header, BorderLayout.NORTH);
+
         add(sidebar, BorderLayout.WEST);
+
         add(contentPanel, BorderLayout.CENTER);
 
         sidebar.btnDashboard.addActionListener(e -> {
