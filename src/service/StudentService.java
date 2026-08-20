@@ -1,5 +1,6 @@
 package service;
 
+import model.Course;
 import model.Student;
 import repository.StudentRepository;
 
@@ -103,6 +104,10 @@ public class StudentService {
 
     private void validateForUpdate(Student student) throws ValidationException {
         validateStudent(student);
+    }
+
+    public void exportStudent(String fileName) {
+        repository.exportCSV(repository.getAllStudents(), fileName);
     }
 
 }

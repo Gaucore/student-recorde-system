@@ -37,7 +37,7 @@ public class FormTextField extends JTextField {
 
         setFont(new Font("Segoe UI", Font.PLAIN, 15));
 
-        setPreferredSize(new Dimension(260, 40));
+        setPreferredSize(new Dimension(340, 42));
 
         Border line = new LineBorder(new Color(190, 190, 190), 1, true);
 

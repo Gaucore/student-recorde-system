@@ -75,7 +75,7 @@ public class StudentTableModel extends AbstractTableModel {
     }
 
     public void setStudents(List<Student> students) {
-        this.students = students;
+        this.students = new ArrayList<>(students);
         fireTableDataChanged();
     }
 

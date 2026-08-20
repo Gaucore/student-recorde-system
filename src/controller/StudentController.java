@@ -38,4 +38,8 @@ public class StudentController {
         return studentService.searchStudents(keyword);
     }
 
+    public void exportStudent(String fileName) {
+        studentService.exportStudent(fileName);
+    }
+
 }

@@ -4,6 +4,7 @@ import java.awt.*;
 import javax.swing.*;
 
 import config.AppConfig;
+import ui.panel.CoursePanel;
 import ui.panel.DashboardPanel;
 import ui.panel.HeaderPanel;
 import ui.panel.SidebarPanel;
@@ -27,6 +28,7 @@ public class DashboardFrame extends BaseFrame {
 
         contentPanel.add(new DashboardPanel(), "dashboard");
         contentPanel.add(new StudentPanel(), "students");
+        contentPanel.add(new CoursePanel(), "Course");
 
         // setLayout(new BorderLayout());
         HeaderPanel header = new HeaderPanel();
@@ -44,6 +46,10 @@ public class DashboardFrame extends BaseFrame {
 
         sidebar.btnStudents.addActionListener(e -> {
             cardLayout.show(contentPanel, "students");
+        });
+
+        sidebar.btnCourses.addActionListener(e -> {
+            cardLayout.show(contentPanel, "Course");
         });
 
         setVisible(true);
