@@ -21,6 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.RowFilter;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.TableRowSorter;
 
@@ -511,9 +512,9 @@ public class CoursePanel extends JPanel {
                 courseTableModel = new CourseTableModel();
 
                 courseTable = new JTable(courseTableModel);
+                // courseTable.setAutoCreateRowSorter(true);
 
                 sorter = new TableRowSorter<>(courseTableModel);
-
                 courseTable.setRowSorter(sorter);
 
                 // =====================================================
@@ -694,8 +695,19 @@ public class CoursePanel extends JPanel {
                 }
         }
 
-        private void searchCourse() {
+        // private void searchCourse() {
+        // String keyword = txtSearch.getText().trim();
+        // List<Course> courses = courseController.searchCourse(keyword);
+        // courseTableModel.setCourses(courses);
+        // }
 
+        private void searchCourse() {
+                String keyword = txtSearch.getText().trim();
+                if (keyword.isEmpty()) {
+                        sorter.setRowFilter(null);
+                } else {
+                        sorter.setRowFilter(RowFilter.regexFilter("(?i)" + keyword));
+                }
         }
 
         private void clearForm() {

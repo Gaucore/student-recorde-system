@@ -4,6 +4,7 @@ import java.util.List;
 
 import exception.ValidationException;
 import model.Course;
+import model.CourseStatistics;
 import model.Student;
 import service.CourseService;
 
@@ -41,5 +42,29 @@ public class CourseController {
 
     public void exportCourses(String fileName) {
         courseService.exportCourses(fileName);
+    }
+
+    public void sortByCourseName() {
+        courseService.sortByCourseName();
+    }
+
+    public void sortByFees() {
+        courseService.sortByFees();
+    }
+
+    public void sortByDuration() {
+        courseService.sortByDuration();
+    }
+
+    public List<Course> getAllCourses() {
+        return courseService.getAllCourse();
+    }
+
+    public int getCourseCount() {
+        return courseService.getCourseCount();
+    }
+
+    public CourseStatistics getStatistics() {
+        return courseService.getStatistics();
     }
 }

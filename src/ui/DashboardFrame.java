@@ -54,4 +54,5 @@ public class DashboardFrame extends BaseFrame {
 
         setVisible(true);
     }
+
 }

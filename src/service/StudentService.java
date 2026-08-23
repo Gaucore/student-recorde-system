@@ -110,4 +110,8 @@ public class StudentService {
         repository.exportCSV(repository.getAllStudents(), fileName);
     }
 
+    public int getStudentCount() {
+        return repository.getStudentCount();
+    }
+
 }

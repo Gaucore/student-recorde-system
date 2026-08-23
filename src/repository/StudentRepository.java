@@ -27,6 +27,10 @@ public class StudentRepository {
         return students;
     }
 
+    public int getStudentCount() {
+        return students.size();
+    }
+
     public Student findById(String studentId) {
         for (Student student : students) {
             if (student.getStudentId().equals(studentId)) {

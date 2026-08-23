@@ -35,6 +35,16 @@ public class CourseTableModel extends AbstractTableModel {
     }
 
     @Override
+    public Class<?> getColumnClass(int columnIndex) {
+        switch (columnIndex) {
+            case 3:
+                return Double.class; // Fees column
+            default:
+                return String.class;
+        }
+    }
+
+    @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Course course = courses.get(rowIndex);
         switch (columnIndex) {

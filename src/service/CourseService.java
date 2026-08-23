@@ -1,10 +1,13 @@
 package service;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import exception.ValidationException;
 import model.Course;
+import model.CourseStatistics;
 import validation.CourseValidator;
 
 public class CourseService {
@@ -36,14 +39,30 @@ public class CourseService {
         return courses;
     }
 
+    public int getCourseCount() {
+        return courses.size();
+    }
+
     // search Course;
+    // Search Course
     public List<Course> searchCourses(String keyword) {
+
         List<Course> result = new ArrayList<>();
-        keyword = keyword.toLowerCase();
+
+        if (keyword == null || keyword.trim().isEmpty()) {
+            result.addAll(courses);
+            return result;
+        }
+
+        keyword = keyword.toLowerCase().trim();
+
         for (Course course : courses) {
+
             if (course.getCourseCode().toLowerCase().contains(keyword)
                     || course.getCourseName().toLowerCase().contains(keyword)
-                    || course.getDuration().toLowerCase().contains(keyword)) {
+                    || course.getDuration().toLowerCase().contains(keyword)
+                    || String.valueOf(course.getFees()).contains(keyword)) {
+
                 result.add(course);
             }
         }
@@ -102,6 +121,43 @@ public class CourseService {
 
     public void exportCourses(String fileName) {
         fileService.exportCSV(courses, fileName);
+    }
+
+    public void sortByCourseName() {
+        Collections.sort(courses, Comparator.comparing(Course::getCourseName));
+    }
+
+    public void sortByFees() {
+        Collections.sort(courses, Comparator.comparing(Course::getFees));
+    }
+
+    public void sortByDuration() {
+        Collections.sort(courses, Comparator.comparing(Course::getDuration));
+    }
+
+    public CourseStatistics getStatistics() {
+        if (courses.isEmpty()) {
+            return new CourseStatistics(0, 0, 0, 0);
+        }
+
+        double highest = courses.get(0).getFees();
+        double lowest = courses.get(0).getFees();
+
+        double total = 0;
+        for (Course course : courses) {
+            double fee = course.getFees();
+            total += fee;
+            if (fee > highest) {
+                highest = fee;
+            }
+            if (fee < lowest) {
+                lowest = fee;
+            }
+        }
+
+        double average = total / courses.size();
+
+        return new CourseStatistics(courses.size(), highest, lowest, average);
     }
 
 }

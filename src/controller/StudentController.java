@@ -42,4 +42,8 @@ public class StudentController {
         studentService.exportStudent(fileName);
     }
 
+    public int getStudentCount() {
+        return studentService.getStudentCount();
+    }
+
 }

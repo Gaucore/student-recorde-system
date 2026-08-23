@@ -30,8 +30,10 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
 import constant.AppConstants;
+import controller.CourseController;
 import controller.StudentController;
 import exception.ValidationException;
+import model.Course;
 import model.Student;
 import table.StudentTableModel;
 
@@ -85,7 +87,7 @@ public class StudentPanel extends JPanel {
         private TableRowSorter<StudentTableModel> sorter;
 
         private StudentController studentController;
-
+        private CourseController courseController;
         // =========================================================
         // CONSTRUCTOR
         // =========================================================
@@ -93,9 +95,10 @@ public class StudentPanel extends JPanel {
         public StudentPanel() {
 
                 studentController = new StudentController();
+                courseController = new CourseController();
 
                 initializeUI();
-
+                loadCourses();
                 loadStudents();
         }
 
@@ -275,16 +278,18 @@ public class StudentPanel extends JPanel {
                                                 "Other"
                                 });
 
-                cmbCourse = new JComboBox<>(
-                                new String[] {
-                                                "Select Course",
-                                                "B.Sc IT",
-                                                "B.Sc CS",
-                                                "BCA",
-                                                "MCA",
-                                                "B.Com",
-                                                "BBA"
-                                });
+                // cmbCourse = new JComboBox<>(
+                // new String[] {
+                // "Select Course",
+                // "B.Sc IT",
+                // "B.Sc CS",
+                // "BCA",
+                // "MCA",
+                // "B.Com",
+                // "BBA"
+                // });
+
+                cmbCourse = new JComboBox<>();
 
                 styleComboBox(cmbGender);
                 styleComboBox(cmbCourse);
@@ -1053,8 +1058,16 @@ public class StudentPanel extends JPanel {
         // =========================================================
 
         private void loadStudents() {
-
                 refreshTable();
+        }
+
+        private void loadCourses() {
+                cmbCourse.removeAllItems();
+                cmbCourse.addItem("Select Course");
+                List<Course> courses = courseController.getAllCourse();
+                for (Course course : courses) {
+                        cmbCourse.addItem(course.getCourseName());
+                }
         }
 
         // =========================================================
