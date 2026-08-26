@@ -3,7 +3,9 @@ package service;
 import model.Course;
 import model.Student;
 import repository.StudentRepository;
+import util.BackupManager;
 
+import java.io.IOException;
 import java.util.List;
 import exception.ValidationException;
 import constant.AppConstants;
@@ -112,6 +114,45 @@ public class StudentService {
 
     public int getStudentCount() {
         return repository.getStudentCount();
+    }
+
+    public void backupStudents() throws IOException {
+        BackupManager.backupFile("data/student.dat", "student_backup.dat");
+    }
+
+    public void restoreStudent() throws IOException {
+        BackupManager.restoreFile("student_backup.dat", "data/student.dat");
+    }
+
+    public int getMaleStudentCount() {
+        int count = 0;
+        for (Student student : repository.getAllStudents()) {
+            if ("Male".equalsIgnoreCase(student.getGender())) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public int getFemaleStudentCount() {
+        int count = 0;
+        for (Student student : repository.getAllStudents()) {
+            if ("Female".equalsIgnoreCase(student.getGender())) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public int getOtherStudentCount() {
+
+        int count = 0;
+        for (Student student : repository.getAllStudents()) {
+            if ("Other".equalsIgnoreCase(student.getGender())) {
+                count++;
+            }
+        }
+        return count;
     }
 
 }

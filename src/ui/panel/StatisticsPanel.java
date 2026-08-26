@@ -11,43 +11,54 @@ import ui.component.DashboardCard;
 
 public class StatisticsPanel extends JPanel {
 
-    private StudentController studentController;
-    private CourseController courseController;
+        private StudentController studentController;
+        private CourseController courseController;
 
-    public StatisticsPanel() {
+        public StatisticsPanel() {
 
-        studentController = new StudentController();
-        courseController = new CourseController();
+                studentController = new StudentController();
+                courseController = new CourseController();
 
-        initialize();
-    }
+                initialize();
+        }
 
-    private void initialize() {
+        private void initialize() {
 
-        setOpaque(false);
-        setLayout(new GridLayout(1, 4, 15, 15));
+                setOpaque(false);
+                setLayout(new GridLayout(2, 3, 15, 15));
 
-        // Total Students
-        int totalStudents = studentController.getStudentCount();
+                // Total Students
+                int totalStudents = studentController.getStudentCount();
 
-        // Course Statistics
-        CourseStatistics statistics = courseController.getStatistics();
+                int totalMaleStudents = studentController.getMaleStudentCount();
+                int totalFemaleStudents = studentController.getFemaleStudentCount();
 
-        add(new DashboardCard(
-                "Students",
-                String.valueOf(totalStudents)));
+                // Course Statistics
+                CourseStatistics statistics = courseController.getStatistics();
 
-        add(new DashboardCard(
-                "Courses",
-                String.valueOf(statistics.getTotalCourses())));
+                add(new DashboardCard(
+                                "Total Students",
+                                String.valueOf(totalStudents)));
 
-        add(new DashboardCard(
-                "Highest Fee",
-                "₹" + statistics.getHighestFee()));
+                add(new DashboardCard(
+                                "Total Courses",
+                                String.valueOf(statistics.getTotalCourses())));
 
-        add(new DashboardCard(
-                "Average Fee",
-                "₹" + String.format("%.2f",
-                        statistics.getAverageFee())));
-    }
+                add(new DashboardCard(
+                                "Male Students",
+                                String.valueOf(totalMaleStudents)));
+
+                add(new DashboardCard(
+                                "Female Students",
+                                String.valueOf(totalFemaleStudents)));
+
+                add(new DashboardCard(
+                                "Highest Fee",
+                                "₹" + statistics.getHighestFee()));
+
+                add(new DashboardCard(
+                                "Average Fee",
+                                "₹" + String.format("%.2f",
+                                                statistics.getAverageFee())));
+        }
 }

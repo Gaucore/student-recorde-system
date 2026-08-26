@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import exception.ValidationException;
@@ -66,5 +67,13 @@ public class CourseController {
 
     public CourseStatistics getStatistics() {
         return courseService.getStatistics();
+    }
+
+    public void backupCourses() throws IOException {
+        courseService.backupCourses();
+    }
+
+    public void restoreCourse() throws IOException {
+        courseService.restoreCourse();
     }
 }

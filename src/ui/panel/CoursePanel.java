@@ -8,7 +8,9 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.print.PrinterException;
 import java.io.File;
+import java.text.MessageFormat;
 import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -58,6 +60,9 @@ public class CoursePanel extends JPanel {
 
         private JButton btnImport;
         private JButton btnExport;
+        private JButton btnBackup;
+        private JButton btnRestore;
+        private JButton btnPrint;
 
         private CourseController courseController;
 
@@ -203,6 +208,9 @@ public class CoursePanel extends JPanel {
 
                 btnImport = new JButton("Import CSV");
                 btnExport = new JButton("Export CSV");
+                btnBackup = new JButton("Backup");
+                btnRestore = new JButton("Restore");
+                btnPrint = new JButton("Print");
 
                 stylePrimaryButton(btnSave);
                 styleSecondaryButton(btnUpdate);
@@ -210,6 +218,9 @@ public class CoursePanel extends JPanel {
                 styleSecondaryButton(btnClear);
                 styleSuccessButton(btnImport);
                 styleExportButton(btnExport);
+                styleSecondaryButton(btnBackup);
+                stylePrimaryButton(btnRestore);
+                stylePrimaryButton(btnPrint);
 
                 buttonPanel.add(btnSave);
                 buttonPanel.add(btnUpdate);
@@ -217,6 +228,9 @@ public class CoursePanel extends JPanel {
                 buttonPanel.add(btnClear);
                 buttonPanel.add(btnImport);
                 buttonPanel.add(btnExport);
+                buttonPanel.add(btnBackup);
+                buttonPanel.add(btnRestore);
+                buttonPanel.add(btnPrint);
 
                 gbc.gridx = 0;
                 gbc.gridy = row;
@@ -248,6 +262,12 @@ public class CoursePanel extends JPanel {
                 btnImport.addActionListener(e -> importData());
 
                 btnExport.addActionListener(e -> exportData());
+
+                btnBackup.addActionListener(e -> backupData());
+
+                btnRestore.addActionListener(e -> restoreData());
+
+                btnPrint.addActionListener(e -> printCourse());
 
                 return panel;
         }
@@ -695,6 +715,39 @@ public class CoursePanel extends JPanel {
                 }
         }
 
+        private void backupData() {
+                try {
+                        courseController.backupCourses();
+                        JOptionPane.showMessageDialog(this, "Course backup created successfully.");
+                } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(this, ex.getMessage(), "Backup Error", JOptionPane.ERROR_MESSAGE);
+                }
+        }
+
+        private void restoreData() {
+                try {
+                        courseController.restoreCourse();
+                        JOptionPane.showMessageDialog(this, "Course Restored Successfully.");
+                } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(this, ex.getMessage(), "Backup Error", JOptionPane.ERROR_MESSAGE);
+                }
+        }
+
+        private void printCourse() {
+                try {
+                        MessageFormat header = new MessageFormat("Course Report");
+                        MessageFormat footer = new MessageFormat("Page {0}");
+                        boolean complete = courseTable.print(JTable.PrintMode.FIT_WIDTH, header, footer);
+                        if (complete) {
+                                showSuccess("Printing completed");
+                        } else {
+                                showError("Printing cancelled.");
+                        }
+                } catch (PrinterException ex) {
+                        showError(ex.getMessage());
+                }
+        }
+
         // private void searchCourse() {
         // String keyword = txtSearch.getText().trim();
         // List<Course> courses = courseController.searchCourse(keyword);
@@ -717,4 +770,25 @@ public class CoursePanel extends JPanel {
                 txtFees.setText("");
                 courseTable.clearSelection();
         }
+
+        private void showSuccess(
+                        String message) {
+
+                JOptionPane.showMessageDialog(
+                                this,
+                                message,
+                                AppConstants.SUCCESS,
+                                JOptionPane.INFORMATION_MESSAGE);
+        }
+
+        private void showError(
+                        String message) {
+
+                JOptionPane.showMessageDialog(
+                                this,
+                                message,
+                                AppConstants.VALIDATION_ERROR,
+                                JOptionPane.ERROR_MESSAGE);
+        }
+
 }

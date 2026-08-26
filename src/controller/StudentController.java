@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import exception.ValidationException;
@@ -44,6 +45,26 @@ public class StudentController {
 
     public int getStudentCount() {
         return studentService.getStudentCount();
+    }
+
+    public void backupStudents() throws IOException {
+        studentService.backupStudents();
+    }
+
+    public void restoreCourse() throws IOException {
+        studentService.restoreStudent();
+    }
+
+    public int getMaleStudentCount() {
+        return studentService.getMaleStudentCount();
+    }
+
+    public int getFemaleStudentCount() {
+        return studentService.getFemaleStudentCount();
+    }
+
+    public int getOtherStudentCount() {
+        return studentService.getOtherStudentCount();
     }
 
 }

@@ -8,7 +8,9 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.print.PrinterException;
 import java.io.File;
+import java.text.MessageFormat;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -77,6 +79,9 @@ public class StudentPanel extends JPanel {
         private JButton btnClear;
 
         private JButton btnExport;
+        private JButton btnBackup;
+        private JButton btnRestore;
+        private JButton btnPrint;
 
         private JTextField txtSearch;
 
@@ -375,17 +380,27 @@ public class StudentPanel extends JPanel {
 
                 btnExport = new JButton("Export");
 
+                btnBackup = new JButton("Backup");
+                btnRestore = new JButton("Restore");
+                btnPrint = new JButton("Print");
+
                 stylePrimaryButton(btnSave);
                 styleSecondaryButton(btnUpdate);
                 styleDangerButton(btnDelete);
                 styleSecondaryButton(btnClear);
+                styleSecondaryButton(btnBackup);
                 styleExportButton(btnExport);
+                stylePrimaryButton(btnRestore);
+                stylePrimaryButton(btnPrint);
 
                 buttonPanel.add(btnSave);
                 buttonPanel.add(btnUpdate);
                 buttonPanel.add(btnDelete);
                 buttonPanel.add(btnClear);
+                buttonPanel.add(btnBackup);
                 buttonPanel.add(btnExport);
+                buttonPanel.add(btnRestore);
+                buttonPanel.add(btnPrint);
 
                 gbc.gridx = 0;
                 gbc.gridy = row;
@@ -419,6 +434,11 @@ public class StudentPanel extends JPanel {
                                 e -> clearForm());
 
                 btnExport.addActionListener(e -> exportData());
+
+                btnBackup.addActionListener(e -> backupData());
+
+                btnRestore.addActionListener(e -> restoreData());
+                btnPrint.addActionListener(e -> printStudents());
 
                 return panel;
         }
@@ -1180,6 +1200,39 @@ public class StudentPanel extends JPanel {
                 if (option == JFileChooser.APPROVE_OPTION) {
                         studentController.exportStudent(chooser.getSelectedFile().getAbsolutePath());
                         JOptionPane.showMessageDialog(this, "student Exported Successfully.");
+                }
+        }
+
+        private void backupData() {
+                try {
+                        studentController.backupStudents();
+                        JOptionPane.showMessageDialog(this, "Student backup created successfully.");
+                } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(this, ex.getMessage(), "Backup Error", JOptionPane.ERROR_MESSAGE);
+                }
+        }
+
+        private void restoreData() {
+                try {
+                        studentController.restoreCourse();
+                        JOptionPane.showMessageDialog(this, "Student  restored successfully.");
+                } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(this, ex.getMessage(), "Backup Error", JOptionPane.ERROR_MESSAGE);
+                }
+        }
+
+        private void printStudents() {
+                try {
+                        MessageFormat header = new MessageFormat("Student Report");
+                        MessageFormat footer = new MessageFormat("Page {0}");
+                        boolean complete = studentTable.print(JTable.PrintMode.FIT_WIDTH, header, footer);
+                        if (complete) {
+                                showSuccess("Printing completed");
+                        } else {
+                                showError("Printing cancelled.");
+                        }
+                } catch (PrinterException ex) {
+                        showError(ex.getMessage());
                 }
         }
 }

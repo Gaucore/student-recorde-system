@@ -1,5 +1,6 @@
 package service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -8,6 +9,7 @@ import java.util.List;
 import exception.ValidationException;
 import model.Course;
 import model.CourseStatistics;
+import util.BackupManager;
 import validation.CourseValidator;
 
 public class CourseService {
@@ -158,6 +160,14 @@ public class CourseService {
         double average = total / courses.size();
 
         return new CourseStatistics(courses.size(), highest, lowest, average);
+    }
+
+    public void backupCourses() throws IOException {
+        BackupManager.backupFile("Course.dat", "course_backup.dat");
+    }
+
+    public void restoreCourse() throws IOException {
+        BackupManager.restoreFile("course_backup.dat", "Course.dat");
     }
 
 }
