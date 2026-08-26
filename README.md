@@ -59,3 +59,9 @@ Student data is stored in `student.ser` using Java object serialization. The ser
 
 - Authentication is currently a simple hard-coded admin check and is not yet a secure production solution.
 - The dashboard is still a shell, and future work can extend it with full student management panels and richer navigation.
+<img width="1387" height="851" alt="image" src="https://github.com/user-attachments/assets/915e4eb7-fe35-42e7-b0af-6ded17bb1654" />
+<img width="1382" height="835" alt="image" src="https://github.com/user-attachments/assets/797c3c27-7aae-461d-950e-ce130e26140b" />
+<img width="1378" height="851" alt="image" src="https://github.com/user-attachments/assets/e4f90bef-a10f-4f4d-965d-1c8cf8392b83" />
+
+
+
