@@ -41,10 +41,6 @@ import table.StudentTableModel;
 
 public class StudentPanel extends JPanel {
 
-        // =========================================================
-        // COLORS
-        // =========================================================
-
         private static final Color PRIMARY_COLOR = new Color(25, 118, 210);
         private static final Color PRIMARY_DARK = new Color(21, 101, 192);
 
@@ -58,10 +54,6 @@ public class StudentPanel extends JPanel {
 
         private static final Color TABLE_HEADER_COLOR = new Color(30, 136, 229);
         private static final Color TABLE_HEADER_TEXT = Color.WHITE;
-
-        // =========================================================
-        // COMPONENTS
-        // =========================================================
 
         private JTextField txtStudentId;
         private JTextField txtFirstName;
@@ -93,9 +85,6 @@ public class StudentPanel extends JPanel {
 
         private StudentController studentController;
         private CourseController courseController;
-        // =========================================================
-        // CONSTRUCTOR
-        // =========================================================
 
         public StudentPanel() {
 
@@ -107,45 +96,15 @@ public class StudentPanel extends JPanel {
                 loadStudents();
         }
 
-        // =========================================================
-        // MAIN UI
-        // =========================================================
-
-        // private void initializeUI() {
-
-        // setLayout(new BorderLayout(15, 15));
-
-        // setBorder(
-        // BorderFactory.createEmptyBorder(
-        // 15,
-        // 18,
-        // 15,
-        // 18));
-
-        // setBackground(BACKGROUND_COLOR);
-
-        // add(createHeaderPanel(), BorderLayout.NORTH);
-
-        // add(createCenterPanel(), BorderLayout.CENTER);
-        // }
-
         private void initializeUI() {
 
                 setLayout(new BorderLayout());
 
                 setBackground(BACKGROUND_COLOR);
 
-                // ---------------------------------------------------------
-                // HEADER
-                // ---------------------------------------------------------
-
                 JPanel headerPanel = createHeaderPanel();
 
                 add(headerPanel, BorderLayout.NORTH);
-
-                // ---------------------------------------------------------
-                // MAIN CONTENT
-                // ---------------------------------------------------------
 
                 JPanel centerPanel = createCenterPanel();
 
@@ -153,26 +112,19 @@ public class StudentPanel extends JPanel {
 
                 mainScrollPane.setBorder(null);
 
-                // Vertical scrollbar
                 mainScrollPane.setVerticalScrollBarPolicy(
                                 JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 
-                // Horizontal scrollbar
                 mainScrollPane.setHorizontalScrollBarPolicy(
                                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
-                // Smooth scrolling
                 mainScrollPane.getVerticalScrollBar().setUnitIncrement(16);
 
-                // Remove viewport background
                 mainScrollPane.getViewport().setBackground(
                                 BACKGROUND_COLOR);
 
                 add(mainScrollPane, BorderLayout.CENTER);
         }
-        // =========================================================
-        // HEADER
-        // =========================================================
 
         private JPanel createHeaderPanel() {
 
@@ -209,9 +161,6 @@ public class StudentPanel extends JPanel {
 
                 return panel;
         }
-        // =========================================================
-        // FORM PANEL
-        // =========================================================
 
         private JPanel createFormPanel() {
 
@@ -237,12 +186,6 @@ public class StudentPanel extends JPanel {
 
                 GridBagConstraints gbc = new GridBagConstraints();
 
-                // gbc.insets = new Insets(
-                // 5,
-                // 5,
-                // 5,
-                // 5);
-
                 gbc.insets = new Insets(
                                 4,
                                 6,
@@ -252,10 +195,6 @@ public class StudentPanel extends JPanel {
                 gbc.fill = GridBagConstraints.HORIZONTAL;
 
                 gbc.weightx = 1;
-
-                // -----------------------------------------------------
-                // TEXT FIELDS
-                // -----------------------------------------------------
 
                 txtStudentId = new JTextField();
                 txtFirstName = new JTextField();
@@ -271,10 +210,6 @@ public class StudentPanel extends JPanel {
                 styleTextField(txtEmail);
                 styleTextField(txtAddress);
 
-                // -----------------------------------------------------
-                // COMBO BOX
-                // -----------------------------------------------------
-
                 cmbGender = new JComboBox<>(
                                 new String[] {
                                                 "Select Gender",
@@ -283,25 +218,10 @@ public class StudentPanel extends JPanel {
                                                 "Other"
                                 });
 
-                // cmbCourse = new JComboBox<>(
-                // new String[] {
-                // "Select Course",
-                // "B.Sc IT",
-                // "B.Sc CS",
-                // "BCA",
-                // "MCA",
-                // "B.Com",
-                // "BBA"
-                // });
-
                 cmbCourse = new JComboBox<>();
 
                 styleComboBox(cmbGender);
                 styleComboBox(cmbCourse);
-
-                // -----------------------------------------------------
-                // FIELDS
-                // -----------------------------------------------------
 
                 int row = 0;
 
@@ -361,10 +281,6 @@ public class StudentPanel extends JPanel {
                                 txtAddress,
                                 row++);
 
-                // -----------------------------------------------------
-                // BUTTONS
-                // -----------------------------------------------------
-
                 JPanel buttonPanel = new JPanel(
                                 new FlowLayout(
                                                 FlowLayout.LEFT,
@@ -417,10 +333,6 @@ public class StudentPanel extends JPanel {
                                 buttonPanel,
                                 gbc);
 
-                // -----------------------------------------------------
-                // ACTION LISTENERS
-                // -----------------------------------------------------
-
                 btnSave.addActionListener(
                                 e -> saveStudent());
 
@@ -442,10 +354,6 @@ public class StudentPanel extends JPanel {
 
                 return panel;
         }
-
-        // =========================================================
-        // FORM FIELD
-        // =========================================================
 
         private void addField(
                         JPanel panel,
@@ -495,10 +403,6 @@ public class StudentPanel extends JPanel {
                                 gbc);
         }
 
-        // =========================================================
-        // TABLE PANEL
-        // =========================================================
-
         private JPanel createTablePanel() {
 
                 JPanel panel = new JPanel(
@@ -507,10 +411,6 @@ public class StudentPanel extends JPanel {
                                                 10));
 
                 panel.setOpaque(false);
-
-                // -----------------------------------------------------
-                // SEARCH
-                // -----------------------------------------------------
 
                 JPanel searchPanel = new JPanel(
                                 new BorderLayout(
@@ -571,10 +471,6 @@ public class StudentPanel extends JPanel {
                                 searchPanel,
                                 BorderLayout.NORTH);
 
-                // -----------------------------------------------------
-                // TABLE
-                // -----------------------------------------------------
-
                 studentTableModel = new StudentTableModel();
 
                 studentTable = new JTable(
@@ -584,10 +480,6 @@ public class StudentPanel extends JPanel {
                                 studentTableModel);
 
                 studentTable.setRowSorter(sorter);
-
-                // -----------------------------------------------------
-                // TABLE STYLE
-                // -----------------------------------------------------
 
                 studentTable.setFont(
                                 new Font(
@@ -660,10 +552,6 @@ public class StudentPanel extends JPanel {
                 return panel;
         }
 
-        // =========================================================
-        // TEXT FIELD STYLE
-        // =========================================================
-
         private void styleTextField(
                         JTextField field) {
 
@@ -699,10 +587,6 @@ public class StudentPanel extends JPanel {
                                                                 5,
                                                                 9)));
         }
-
-        // =========================================================
-        // SEARCH STYLE
-        // =========================================================
 
         private void styleSearchField(
                         JTextField field) {
@@ -740,10 +624,6 @@ public class StudentPanel extends JPanel {
                                                                 10)));
         }
 
-        // =========================================================
-        // COMBO BOX STYLE
-        // =========================================================
-
         private void styleComboBox(
                         JComboBox<String> comboBox) {
 
@@ -764,10 +644,6 @@ public class StudentPanel extends JPanel {
                 comboBox.setForeground(
                                 TEXT_COLOR);
         }
-
-        // =========================================================
-        // PRIMARY BUTTON
-        // =========================================================
 
         private void stylePrimaryButton(
                         JButton button) {
@@ -799,10 +675,6 @@ public class StudentPanel extends JPanel {
                                                 5,
                                                 15));
         }
-
-        // =========================================================
-        // SECONDARY BUTTON
-        // =========================================================
 
         private void styleSecondaryButton(
                         JButton button) {
@@ -847,10 +719,6 @@ public class StudentPanel extends JPanel {
                 button.setBorder(BorderFactory.createEmptyBorder(5, 15, 5, 15));
         }
 
-        // =========================================================
-        // DELETE BUTTON
-        // =========================================================
-
         private void styleDangerButton(
                         JButton button) {
 
@@ -885,10 +753,6 @@ public class StudentPanel extends JPanel {
                                                 15));
         }
 
-        // =========================================================
-        // SAVE
-        // =========================================================
-
         private void saveStudent() {
 
                 Student student = createStudentFromForm();
@@ -915,10 +779,6 @@ public class StudentPanel extends JPanel {
                 }
         }
 
-        // =========================================================
-        // UPDATE
-        // =========================================================
-
         private void updateStudent() {
 
                 Student student = createStudentFromForm();
@@ -944,10 +804,6 @@ public class StudentPanel extends JPanel {
                                         ex.getMessage());
                 }
         }
-
-        // =========================================================
-        // DELETE
-        // =========================================================
 
         private void deleteStudent() {
 
@@ -993,10 +849,6 @@ public class StudentPanel extends JPanel {
                 }
         }
 
-        // =========================================================
-        // SEARCH
-        // =========================================================
-
         private void searchStudent() {
 
                 String keyword = txtSearch
@@ -1009,10 +861,6 @@ public class StudentPanel extends JPanel {
                 studentTableModel
                                 .setStudents(students);
         }
-
-        // =========================================================
-        // CREATE STUDENT
-        // =========================================================
 
         private Student createStudentFromForm() {
 
@@ -1073,10 +921,6 @@ public class StudentPanel extends JPanel {
                 return student;
         }
 
-        // =========================================================
-        // LOAD STUDENTS
-        // =========================================================
-
         private void loadStudents() {
                 refreshTable();
         }
@@ -1089,10 +933,6 @@ public class StudentPanel extends JPanel {
                         cmbCourse.addItem(course.getCourseName());
                 }
         }
-
-        // =========================================================
-        // LOAD SELECTED STUDENT
-        // =========================================================
 
         private void loadSelectedStudent() {
 
@@ -1136,10 +976,6 @@ public class StudentPanel extends JPanel {
                                 student.getCourse());
         }
 
-        // =========================================================
-        // SUCCESS
-        // =========================================================
-
         private void showSuccess(
                         String message) {
 
@@ -1149,10 +985,6 @@ public class StudentPanel extends JPanel {
                                 AppConstants.SUCCESS,
                                 JOptionPane.INFORMATION_MESSAGE);
         }
-
-        // =========================================================
-        // ERROR
-        // =========================================================
 
         private void showError(
                         String message) {
@@ -1164,10 +996,6 @@ public class StudentPanel extends JPanel {
                                 JOptionPane.ERROR_MESSAGE);
         }
 
-        // =========================================================
-        // REFRESH TABLE
-        // =========================================================
-
         private void refreshTable() {
 
                 List<Student> students = studentController
@@ -1176,10 +1004,6 @@ public class StudentPanel extends JPanel {
                 studentTableModel
                                 .setStudents(students);
         }
-
-        // =========================================================
-        // CLEAR FORM
-        // =========================================================
 
         private void clearForm() {
                 txtStudentId.setText("");

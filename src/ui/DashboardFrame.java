@@ -30,7 +30,6 @@ public class DashboardFrame extends BaseFrame {
         contentPanel.add(new StudentPanel(), "students");
         contentPanel.add(new CoursePanel(), "Course");
 
-        // setLayout(new BorderLayout());
         HeaderPanel header = new HeaderPanel();
         setLayout(new BorderLayout());
 

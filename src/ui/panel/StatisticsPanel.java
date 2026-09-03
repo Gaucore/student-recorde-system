@@ -27,13 +27,11 @@ public class StatisticsPanel extends JPanel {
                 setOpaque(false);
                 setLayout(new GridLayout(2, 3, 15, 15));
 
-                // Total Students
                 int totalStudents = studentController.getStudentCount();
 
                 int totalMaleStudents = studentController.getMaleStudentCount();
                 int totalFemaleStudents = studentController.getFemaleStudentCount();
 
-                // Course Statistics
                 CourseStatistics statistics = courseController.getStatistics();
 
                 add(new DashboardCard(

@@ -210,7 +210,6 @@ public class StudentFormPanel extends JPanel {
 
         Dimension fieldSize = new Dimension(320, 40);
 
-        // ---------- Text Fields ----------
         txtStudentId = new FormTextField(20);
         txtFirstName = new FormTextField(20);
         txtLastName = new FormTextField(20);
@@ -224,8 +223,6 @@ public class StudentFormPanel extends JPanel {
         txtMobile.setPreferredSize(fieldSize);
         txtEmail.setPreferredSize(fieldSize);
         txtAddress.setPreferredSize(fieldSize);
-
-        // ---------- ComboBox ----------
         cmbGender = new JComboBox<>(new String[] {
                 "Select Gender",
                 "Male",
@@ -250,7 +247,6 @@ public class StudentFormPanel extends JPanel {
         cmbGender.setPreferredSize(fieldSize);
         cmbCourse.setPreferredSize(fieldSize);
 
-        // ---------- Buttons ----------
         btnSave = new PrimaryButton("Save");
         btnUpdate = new SecondaryButton("Update");
         btnDelete = new SecondaryButton("Delete");

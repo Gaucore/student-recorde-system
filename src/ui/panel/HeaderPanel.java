@@ -48,8 +48,6 @@ public class HeaderPanel extends JPanel {
         add(leftPanel, BorderLayout.WEST);
         add(rightPanel, BorderLayout.EAST);
 
-        // startClock();
-
     }
 
     private void buildLeft() {
@@ -95,34 +93,17 @@ public class HeaderPanel extends JPanel {
         lblWelcome.setFont(new Font("Segoe UI", Font.BOLD, 15));
 
         btnLogout = new PrimaryButton("Logout");
-        // btnLogout.addActionListener(e ->{
 
-        // });
         btnLogout.setBackground(Theme.DANGER);
         btnLogout.setForeground(Color.WHITE);
         btnLogout.setFocusPainted(false);
         btnLogout.setBorderPainted(false);
         btnLogout.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-        // Small button size
         btnLogout.setPreferredSize(new Dimension(90, 32));
 
         rightPanel.add(lblWelcome);
         rightPanel.add(btnLogout);
     }
-
-    // private void startClock() {
-
-    // Timer timer = new Timer(1000, e -> {
-    // Date date = new Date();
-    // lblDate.setText(new SimpleDateFormat("dd MMM yyyy").format(date));
-    // lblTime.setText(new SimpleDateFormat("hh:mm:ss a").format(date));
-    // });
-
-    // timer.setInitialDelay(0);
-
-    // timer.start();
-
-    // }
 
 }

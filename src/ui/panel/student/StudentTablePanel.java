@@ -18,7 +18,6 @@ import ui.component.SearchField;
 public class StudentTablePanel extends JPanel {
 
     private JLabel lblTitle;
-    // private SearchField txtSearch;
     private JTable studentTable;
     private StudentTableModel studentTableModel;
     private JScrollPane scrollPane;
@@ -37,7 +36,6 @@ public class StudentTablePanel extends JPanel {
     private JScrollPane createTable() {
         studentTableModel = new StudentTableModel();
         studentTable = new JTable(studentTableModel);
-        // studentTable.setRowHeight(40);
         studentTable.getTableHeader()
                 .setPreferredSize(
                         new Dimension(0, 42));

@@ -18,8 +18,7 @@ public class PasswordField extends JPasswordField {
     }
 
     private void initialize() {
-        // setFont(new Font("Segoe UI", Font.PLAIN, 15));
-        // setBorder(new EmptyBorder(8, 10, 8, 10));
+
         setFont(new Font("Segoe UI", Font.PLAIN, 15));
 
         setPreferredSize(new Dimension(260, 40));

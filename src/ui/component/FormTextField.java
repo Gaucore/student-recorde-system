@@ -1,24 +1,3 @@
-// package ui.component;
-
-// import java.awt.Dimension;
-// import java.awt.Font;
-
-// import javax.swing.JTextField;
-// import javax.swing.border.EmptyBorder;
-
-// public class FormTextField extends JTextField {
-
-//     public FormTextField(int columns) {
-//         super(columns);
-//         initialize();
-//     }
-
-//     private void initialize() {
-//         setFont(new Font("Segoe UI", Font.PLAIN, 15));
-//         setBorder(new EmptyBorder(8, 10, 8, 10));
-//     }
-
-// }
 
 package ui.component;
 

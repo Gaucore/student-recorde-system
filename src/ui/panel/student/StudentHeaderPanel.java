@@ -31,37 +31,20 @@ public class StudentHeaderPanel extends JPanel {
 
         setLayout(new BorderLayout(15, 0));
         setBorder(BorderFactory.createEmptyBorder(0, 5, 18, 5));
-
-        // -----------------------
-        // Left Side
-        // -----------------------
-
         JPanel leftPanel = new JPanel();
-
         leftPanel.setOpaque(false);
-
         leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
-
         lblTitle = new JLabel("Student Management");
-
         lblTitle.setFont(new Font("Segoe UI", Font.BOLD, 30));
-
         lblSubtitle = new JLabel("Manage student records and admissions");
-
         lblSubtitle.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-
         lblSubtitle.setForeground(Color.GRAY);
-
         leftPanel.add(lblTitle);
-
         leftPanel.add(Box.createVerticalStrut(5));
-
         leftPanel.add(lblSubtitle);
-
         JPanel searchPanel = new JPanel();
         searchPanel.setOpaque(false);
         searchPanel.setLayout(new BoxLayout(searchPanel, BoxLayout.Y_AXIS));
-
         JLabel lblSearch = new JLabel("Search");
         lblSearch.setFont(new Font("Segoe UI", Font.BOLD, 13));
         lblSearch.setAlignmentX(LEFT_ALIGNMENT);

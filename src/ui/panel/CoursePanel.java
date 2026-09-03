@@ -77,9 +77,7 @@ public class CoursePanel extends JPanel {
                 setLayout(new BorderLayout());
 
                 setBackground(BACKGROUND_COLOR);
-                // JPanel headerPanel = createHeaderPanel();
 
-                // add(headerPanel, BorderLayout.NORTH);
                 JPanel centerPanel = createCenterPanel();
                 JScrollPane mainScrollPane = new JScrollPane(centerPanel);
                 mainScrollPane.setBorder(null);
@@ -96,14 +94,6 @@ public class CoursePanel extends JPanel {
 
                 add(mainScrollPane, BorderLayout.CENTER);
         }
-
-        // private JPanel createHeaderPanel() {
-        // JPanel panel = new JPanel(new BorderLayout());
-        // JLabel lblTitle = new JLabel("Course Managemet");
-        // lblTitle.setFont(new Font("Segoe UI", Font.BOLD, 28));
-        // panel.add(lblTitle, BorderLayout.WEST);
-        // return panel;
-        // }
 
         private JPanel createCenterPanel() {
 
@@ -129,8 +119,7 @@ public class CoursePanel extends JPanel {
         private JPanel createFormPanel() {
 
                 JPanel panel = new JPanel(new GridBagLayout());
-                // panel.setPreferredSize(new Dimension(0, 440));
-                // panel.setMinimumSize(new Dimension(0, 330));
+
                 panel.setBackground(PANEL_COLOR);
                 panel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createTitledBorder(
                                 BorderFactory.createLineBorder(
@@ -150,9 +139,7 @@ public class CoursePanel extends JPanel {
                                 6);
                 gbc.fill = GridBagConstraints.HORIZONTAL;
                 gbc.weightx = 1;
-                // -----------------------------------------------------
-                // TEXT FIELDS
-                // -----------------------------------------------------
+
                 txtCourseCode = new JTextField();
                 txtCourseName = new JTextField();
                 txtDuration = new JTextField();
@@ -487,10 +474,6 @@ public class CoursePanel extends JPanel {
                 JPanel panel = new JPanel(new BorderLayout(10, 10));
                 panel.setOpaque(false);
 
-                // =====================================================
-                // SEARCH PANEL
-                // =====================================================
-
                 JPanel searchPanel = new JPanel(new BorderLayout(10, 0));
                 searchPanel.setOpaque(false);
 
@@ -525,21 +508,12 @@ public class CoursePanel extends JPanel {
 
                 panel.add(searchPanel, BorderLayout.NORTH);
 
-                // =====================================================
-                // TABLE
-                // =====================================================
-
                 courseTableModel = new CourseTableModel();
 
                 courseTable = new JTable(courseTableModel);
-                // courseTable.setAutoCreateRowSorter(true);
 
                 sorter = new TableRowSorter<>(courseTableModel);
                 courseTable.setRowSorter(sorter);
-
-                // =====================================================
-                // TABLE STYLE
-                // =====================================================
 
                 courseTable.setFont(new Font("Segoe UI", Font.PLAIN, 13));
                 courseTable.setForeground(TEXT_COLOR);
@@ -571,10 +545,6 @@ public class CoursePanel extends JPanel {
                                 BorderFactory.createLineBorder(BORDER_COLOR));
 
                 panel.add(scrollPane, BorderLayout.CENTER);
-
-                // =====================================================
-                // ROW SELECTION
-                // =====================================================
 
                 courseTable.getSelectionModel().addListSelectionListener(
                                 e -> loadSelectedCourse());
@@ -747,12 +717,6 @@ public class CoursePanel extends JPanel {
                         showError(ex.getMessage());
                 }
         }
-
-        // private void searchCourse() {
-        // String keyword = txtSearch.getText().trim();
-        // List<Course> courses = courseController.searchCourse(keyword);
-        // courseTableModel.setCourses(courses);
-        // }
 
         private void searchCourse() {
                 String keyword = txtSearch.getText().trim();

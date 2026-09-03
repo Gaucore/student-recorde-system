@@ -13,7 +13,6 @@ public class PieChartPanel extends JPanel {
     public PieChartPanel() {
 
         setBackground(Color.WHITE);
-        // setPreferredSize(new Dimension(500, 300));
 
     }
 
@@ -88,8 +87,6 @@ public class PieChartPanel extends JPanel {
                     angle);
 
             startAngle += angle;
-
-            // Legend
 
             g2.fillRect(300, legendY, 15, 15);
 
