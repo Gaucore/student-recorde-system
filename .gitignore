@@ -1,0 +1,29 @@
+# Maven
+target/
+
+# Runtime
+runtime/
+installer/
+
+# Zip
+*.zip
+
+# Logs
+*.log
+logs/
+
+# IntelliJ
+.idea/
+*.iml
+
+# Eclipse
+.project
+.classpath
+.settings/
+
+# VS Code
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
